@@ -7,7 +7,10 @@ import '../../../app/app.router.dart';
 class TopicsViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
 
-  void navigateToQuiz() {
+  // TODO: Replace with category from DB (firestore)
+  final List<String> topics = ["Politics", "Animals", "Movies"];
+
+  void navigateToQuiz(String topic) {
     _navigationService.navigateTo(Routes.quizView);
   }
 }

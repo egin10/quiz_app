@@ -25,8 +25,10 @@ class TopicsView extends StackedView<TopicsViewModel> {
         height: double.maxFinite,
         child: ListView(
           children: [
-            // TODO: Replace with category from DB
-            for (int index = 0; index < 100; index++) const TopicItem(),
+            for (int index = 0; index < viewModel.topics.length; index++)
+              TopicItem(
+                name: viewModel.topics[index],
+              ),
           ],
         ),
       ),

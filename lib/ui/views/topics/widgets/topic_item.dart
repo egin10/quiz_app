@@ -7,14 +7,19 @@ import '../../../../app/theme/app_text_theme.dart';
 import '../topics_viewmodel.dart';
 
 class TopicItem extends StackedHookView<TopicsViewModel> {
-  const TopicItem({super.key});
+  final String name;
+
+  const TopicItem({
+    super.key,
+    required this.name,
+  });
 
   @override
   Widget builder(BuildContext context, TopicsViewModel model) {
     return Padding(
       padding: EdgeInsets.only(bottom: 8.h),
       child: ElevatedButton(
-        onPressed: () => model.navigateToQuiz(),
+        onPressed: () => model.navigateToQuiz(name),
         style: ElevatedButton.styleFrom(
           backgroundColor: CustomColors.accentColor,
           padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 16.w),
@@ -24,12 +29,13 @@ class TopicItem extends StackedHookView<TopicsViewModel> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              'Politics',
+              name,
               style: AppTextTheme.getThemeText().bodyLarge,
             ),
-            const Icon(
+            Icon(
               Icons.arrow_right,
               color: Colors.white,
+              size: 36.h,
             ),
           ],
         ),

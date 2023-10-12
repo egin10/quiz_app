@@ -16,11 +16,11 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.topicsView);
   }
 
-  void share() {
-    Share.share("https://github.com/egin10/quiz_app");
+  void share() async {
+    await Share.share("https://github.com/egin10/quiz_app");
   }
 
-  void rate() {
-    Share.share("https://github.com/egin10/quiz_app");
+  void rate() async {
+    await Share.share("https://github.com/egin10/quiz_app");
   }
 }

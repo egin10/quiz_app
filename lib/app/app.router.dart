@@ -5,14 +5,15 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i6;
+import 'package:flutter/material.dart' as _i7;
 import 'package:flutter/material.dart';
+import 'package:quiz_app/ui/score/score_view.dart' as _i6;
 import 'package:quiz_app/ui/views/home/home_view.dart' as _i3;
 import 'package:quiz_app/ui/views/quiz/quiz_view.dart' as _i4;
 import 'package:quiz_app/ui/views/splashscreen/splashscreen_view.dart' as _i2;
 import 'package:quiz_app/ui/views/topics/topics_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i7;
+import 'package:stacked_services/stacked_services.dart' as _i8;
 
 class Routes {
   static const splashScreenView = '/';
@@ -23,11 +24,14 @@ class Routes {
 
   static const topicsView = '/topics-view';
 
+  static const scoreView = '/score-view';
+
   static const all = <String>{
     splashScreenView,
     homeView,
     quizView,
     topicsView,
+    scoreView,
   };
 }
 
@@ -49,30 +53,40 @@ class StackedRouter extends _i1.RouterBase {
       Routes.topicsView,
       page: _i5.TopicsView,
     ),
+    _i1.RouteDef(
+      Routes.scoreView,
+      page: _i6.ScoreView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.SplashScreenView: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.SplashScreenView(),
         settings: data,
       );
     },
     _i3.HomeView: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.HomeView(),
         settings: data,
       );
     },
     _i4.QuizView: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.QuizView(),
         settings: data,
       );
     },
     _i5.TopicsView: (data) {
-      return _i6.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.TopicsView(),
+        settings: data,
+      );
+    },
+    _i6.ScoreView: (data) {
+      return _i7.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i6.ScoreView(),
         settings: data,
       );
     },
@@ -85,7 +99,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i7.NavigationService {
+extension NavigatorStateExtension on _i8.NavigationService {
   Future<dynamic> navigateToSplashScreenView([
     int? routerId,
     bool preventDuplicates = true,
@@ -142,6 +156,20 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToScoreView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.scoreView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithSplashScreenView([
     int? routerId,
     bool preventDuplicates = true,
@@ -192,6 +220,20 @@ extension NavigatorStateExtension on _i7.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.topicsView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithScoreView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.scoreView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
