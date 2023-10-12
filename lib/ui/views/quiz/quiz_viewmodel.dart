@@ -16,11 +16,11 @@ class QuizViewModel extends BaseViewModel {
     const period = Duration(seconds: 1);
     _timer = Timer.periodic(period, (timer) async {
       ticker++;
-      print(ticker);
       notifyListeners();
 
       if (ticker == maxSecond) {
         cancelFlashTimer();
+        navigateToScore();
       }
     });
   }
@@ -39,6 +39,10 @@ class QuizViewModel extends BaseViewModel {
 
   void navigateExit() {
     _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
+  }
+
+  void navigateToScore() {
+    _navigationService.navigateTo(Routes.scoreView);
   }
 
   @override

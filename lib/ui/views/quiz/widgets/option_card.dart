@@ -19,7 +19,8 @@ class OptionCard extends StackedHookView<QuizViewModel> {
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.maxFinite,
       child: ElevatedButton(
-        onPressed: () {},
+        // TODO: Replace with submit the answer function
+        onPressed: () => model.navigateToScore(),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shape: const StadiumBorder(),

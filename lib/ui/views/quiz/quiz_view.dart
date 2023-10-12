@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quiz_app/ui/views/quiz/widgets/option_card.dart';
-import 'package:quiz_app/ui/views/quiz/widgets/question_card.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../app/contants/custom_colors.dart';
 import '../../../app/theme/app_text_theme.dart';
 import 'quiz_viewmodel.dart';
+import 'widgets/option_card.dart';
+import 'widgets/question_card.dart';
 import 'widgets/timer_indicator.dart';
 
 class QuizView extends StackedView<QuizViewModel> {
@@ -45,7 +45,7 @@ class QuizView extends StackedView<QuizViewModel> {
               margin: EdgeInsets.symmetric(vertical: 36.h),
               height: double.maxFinite,
               width: double.maxFinite,
-              child: Column(
+              child: ListView(
                 children: [
                   // Question
                   // TODO: Replace from DB (Firestore)

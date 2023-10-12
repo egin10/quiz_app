@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 class AppTextTheme {
   static TextTheme getThemeText() => const TextTheme(
+        headlineMedium: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
         headlineSmall: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
