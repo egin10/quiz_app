@@ -8,6 +8,15 @@ When you click on play or take the quiz from the topic page, you have 20 seconds
 After you finish doing the quiz, you will navigate to the Score Page.
 So, you can see the result (correct answer and incorrect answer).
 
+The project use Flutter SDK Version : `3.13.2`.
+
+It only runs on Android or iOS for better UI.
+
+___
+
+Here is the demo:
+![Quiz App](quiz_app.gif)
+
 ___
 
 Thank you 🚀
