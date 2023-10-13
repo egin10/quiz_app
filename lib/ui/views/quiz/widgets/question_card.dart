@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:stacked_hooks/stacked_hooks.dart';
 
 import '../../../../app/theme/app_text_theme.dart';
@@ -12,6 +13,8 @@ class QuestionCard extends StackedHookView<QuizViewModel> {
 
   @override
   Widget builder(BuildContext context, QuizViewModel model) {
+    final unescape = HtmlUnescape();
+
     return Container(
       width: double.maxFinite,
       margin: EdgeInsets.symmetric(
@@ -27,7 +30,7 @@ class QuestionCard extends StackedHookView<QuizViewModel> {
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Text(
-        text,
+        unescape.convert(text),
         textAlign: TextAlign.justify,
         style: AppTextTheme.getThemeText()
             .bodyLarge

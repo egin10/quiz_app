@@ -20,6 +20,7 @@ dependencies:
   observable_ish: ^3.0.1
   equatable: ^2.0.5
   share_plus: ^6.3.0
+  html_unescape: ^2.0.0
 
   #Service
   firebase_core: ^2.17.0

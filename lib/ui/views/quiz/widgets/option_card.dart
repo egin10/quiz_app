@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 import '../../../../app/theme/app_text_theme.dart';
 
@@ -15,6 +16,8 @@ class OptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final unescape = HtmlUnescape();
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
       width: double.maxFinite,
@@ -28,7 +31,7 @@ class OptionCard extends StatelessWidget {
           ),
         ),
         child: Text(
-          text,
+          unescape.convert(text),
           textAlign: TextAlign.center,
           style: AppTextTheme.getThemeText()
               .bodyLarge
