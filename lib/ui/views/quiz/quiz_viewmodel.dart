@@ -9,7 +9,7 @@ import '../../../app/models/quiz.dart';
 import '../../../app/models/topic.dart';
 import '../../../app/services/firebase/firestore_service.dart';
 
-class QuizViewModel extends FutureViewModel {
+class QuizViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
   final FirestoreService _firestoreService = locator<FirestoreService>();
 
@@ -71,18 +71,22 @@ class QuizViewModel extends FutureViewModel {
     startTimer();
   }
 
-  void initialQuiz() async {
+  void initialQuiz(String? topicName) async {
+    startTimer();
+
     // Get Topics
     final List<Topic> topics =
         await runBusyFuture(_firestoreService.getTopics());
     // Shuffle topics
     topics.shuffle();
 
-    final String selectedTopic = topics[0].name ?? '';
+    final String selectedTopic = topicName ?? (topics[0].name ?? '');
 
     // Get list Quiz by topic name
     final resultGetQuiz =
         await runBusyFuture(_firestoreService.getQuizzes(selectedTopic));
+    // Shuffle quiz
+    resultGetQuiz.shuffle();
     listQuiz = resultGetQuiz;
     notifyListeners();
   }
@@ -91,11 +95,5 @@ class QuizViewModel extends FutureViewModel {
   void dispose() {
     cancelFlashTimer();
     super.dispose();
-  }
-
-  @override
-  Future futureToRun() async {
-    if (ticker != maxSecond) startTimer();
-    initialQuiz();
   }
 }

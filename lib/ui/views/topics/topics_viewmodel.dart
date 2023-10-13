@@ -37,6 +37,9 @@ class TopicsViewModel extends BaseViewModel {
   }
 
   void navigateToQuiz(String topic) {
-    _navigationService.navigateTo(Routes.quizView);
+    _navigationService.navigateTo(
+      Routes.quizView,
+      arguments: QuizViewArguments(topicName: topic),
+    );
   }
 }

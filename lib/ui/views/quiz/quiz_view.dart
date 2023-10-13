@@ -10,7 +10,18 @@ import 'widgets/question_card.dart';
 import 'widgets/timer_indicator.dart';
 
 class QuizView extends StackedView<QuizViewModel> {
-  const QuizView({super.key});
+  final String? topicName;
+
+  const QuizView({
+    super.key,
+    this.topicName,
+  });
+
+  @override
+  void onViewModelReady(QuizViewModel viewModel) {
+    viewModel.initialQuiz(topicName);
+    super.onViewModelReady(viewModel);
+  }
 
   @override
   Widget builder(BuildContext context, QuizViewModel viewModel, Widget? child) {
@@ -75,7 +86,7 @@ class QuizView extends StackedView<QuizViewModel> {
               top: 16.h,
               right: 16.w,
               child: Text(
-                "${viewModel.currentQuizIndex + 1}/${viewModel.listQuiz.length}",
+                "${viewModel.listQuiz.isEmpty ? 0 : viewModel.currentQuizIndex + 1}/${viewModel.listQuiz.length}",
               ),
             ),
 
