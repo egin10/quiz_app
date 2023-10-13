@@ -15,7 +15,11 @@ It only runs on Android or iOS for better UI.
 ___
 
 Here is the demo:
-![Quiz App](quiz_app.gif)
+
+![Quiz App](demo/quiz_app1.gif)
+![Quiz App](demo/quiz_app2.gif)
+![Quiz App](demo/quiz_app3.gif)
+![Quiz App](demo/quiz_app4.gif)
 
 ___
 
