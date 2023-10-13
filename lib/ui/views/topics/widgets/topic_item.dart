@@ -28,10 +28,13 @@ class TopicItem extends StackedHookView<TopicsViewModel> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              name,
-              style: AppTextTheme.getThemeText().bodyLarge,
+            Expanded(
+              child: Text(
+                name,
+                style: AppTextTheme.getThemeText().bodyLarge,
+              ),
             ),
+            SizedBox(width: 16.w),
             Icon(
               Icons.arrow_right,
               color: Colors.white,

@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 
+import '../../shared/custom_textfield.dart';
 import 'topics_viewmodel.dart';
 import 'widgets/topic_item.dart';
 
 class TopicsView extends StackedView<TopicsViewModel> {
   const TopicsView({super.key});
+
+  @override
+  void onViewModelReady(TopicsViewModel viewModel) {
+    viewModel.getTopics();
+    super.onViewModelReady(viewModel);
+  }
 
   @override
   Widget builder(
@@ -23,12 +30,30 @@ class TopicsView extends StackedView<TopicsViewModel> {
         padding: EdgeInsets.only(bottom: 42.h),
         width: double.maxFinite,
         height: double.maxFinite,
-        child: ListView(
+        child: Column(
           children: [
-            for (int index = 0; index < viewModel.topics.length; index++)
-              TopicItem(
-                name: viewModel.topics[index],
-              ),
+            CustomTextField(
+              controller: viewModel.searchController,
+              onChanged: (value) => viewModel.onChanged(value),
+            ),
+            SizedBox(height: 26.h),
+            viewModel.listTopics.isNotEmpty
+                ? Expanded(
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        for (int index = 0;
+                            index < viewModel.listTopics.length;
+                            index++)
+                          TopicItem(
+                            name: viewModel.listTopics[index].name ?? 'Unknown',
+                          ),
+                      ],
+                    ),
+                  )
+                : const Center(
+                    child: Text("Topic not found."),
+                  ),
           ],
         ),
       ),
