@@ -82,7 +82,7 @@ class HomeView extends StackedView<HomeViewModel> {
               children: [
                 // Share
                 TextButton(
-                  onPressed: () => viewModel.share(),
+                  onPressed: () => viewModel.shareApp(),
                   child: Row(
                     children: [
                       const Icon(
@@ -100,7 +100,7 @@ class HomeView extends StackedView<HomeViewModel> {
                 SizedBox(width: 40.w),
                 // Rate Us
                 TextButton(
-                  onPressed: () => viewModel.rate(),
+                  onPressed: () => viewModel.rateApp(),
                   child: Row(
                     children: [
                       const Icon(

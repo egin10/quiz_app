@@ -38,7 +38,7 @@ class ScoreView extends StackedView<ScoreViewModel> {
 
             // Button Share Score
             ElevatedButton(
-              onPressed: () => viewModel.share(),
+              onPressed: () => viewModel.shareResult(),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.blue,
                 padding: EdgeInsets.symmetric(
@@ -69,7 +69,7 @@ class ScoreView extends StackedView<ScoreViewModel> {
                     QuizItem(
                       quiz: "Who is the current prime minister of India?",
                       correctAnswer: "Modi G",
-                      incorrectAnswer: index % 2 == 0 ? "Rahul Gandhi" : "",
+                      answer: index % 2 == 0 ? "Rahul Gandhi" : "",
                     ),
                 ],
               ),

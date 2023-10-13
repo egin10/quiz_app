@@ -1,12 +1,14 @@
-import 'package:share_plus/share_plus.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
+import '../../../app/mixins/comon_mixin.dart';
 
-class HomeViewModel extends BaseViewModel {
+class HomeViewModel extends BaseViewModel with CommonMixin {
   final NavigationService _navigationService = locator<NavigationService>();
+
+  final urlShare = "https://github.com/egin10/quiz_app";
 
   void navigateToQuiz() {
     _navigationService.navigateTo(Routes.quizView);
@@ -16,11 +18,11 @@ class HomeViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.topicsView);
   }
 
-  void share() async {
-    await Share.share("https://github.com/egin10/quiz_app");
+  void shareApp() async {
+    share(urlShare);
   }
 
-  void rate() async {
-    await Share.share("https://github.com/egin10/quiz_app");
+  void rateApp() async {
+    share(urlShare);
   }
 }

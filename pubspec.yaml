@@ -22,8 +22,8 @@ dependencies:
   share_plus: ^6.3.0
 
   #Service
-  # firebase_core: ^2.15.1
-  # cloud_firestore: ^4.9.0
+  firebase_core: ^2.17.0
+  cloud_firestore: ^4.9.3
 
   #UI
   cupertino_icons: ^1.0.2

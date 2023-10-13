@@ -6,6 +6,7 @@ import '../ui/views/home/home_view.dart';
 import '../ui/views/quiz/quiz_view.dart';
 import '../ui/views/splashscreen/splashscreen_view.dart';
 import '../ui/views/topics/topics_view.dart';
+import 'services/firebase/firestore_service.dart';
 
 @StackedApp(routes: [
   MaterialRoute(page: SplashScreenView, initial: true),
@@ -18,11 +19,6 @@ import '../ui/views/topics/topics_view.dart';
   LazySingleton(classType: BottomSheetService),
   LazySingleton(classType: DialogService),
   LazySingleton(classType: SnackbarService),
-  // Singleton(
-  //   classType: DioService,
-  //   resolveUsing: DioService.getInstance,
-  //   asType: Dio,
-  // ),
-  // LazySingleton(classType: NotificationService),
+  LazySingleton(classType: FirestoreService),
 ])
 class App {}

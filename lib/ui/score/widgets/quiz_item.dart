@@ -5,13 +5,13 @@ import '../../../app/theme/app_text_theme.dart';
 import 'text_answer.dart';
 
 class QuizItem extends StatelessWidget {
-  final String quiz, correctAnswer, incorrectAnswer;
+  final String quiz, correctAnswer, answer;
 
   const QuizItem({
     super.key,
     required this.quiz,
     required this.correctAnswer,
-    this.incorrectAnswer = '',
+    this.answer = '',
   });
 
   @override
@@ -30,11 +30,11 @@ class QuizItem extends StatelessWidget {
           // Quiz
           Text(quiz, style: textStyle),
           // Show incorrect Answer
-          incorrectAnswer.isNotEmpty
+          answer != correctAnswer
               ? Row(
                   children: [
                     TextAnswer(
-                      answer: incorrectAnswer,
+                      answer: answer.isEmpty ? 'No choosen' : answer,
                       textStyle: textStyle,
                     ),
                     SizedBox(width: 16.w),
