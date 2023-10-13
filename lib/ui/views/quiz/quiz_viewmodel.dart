@@ -6,16 +6,20 @@ import 'package:stacked_services/stacked_services.dart';
 import '../../../app/app.locator.dart';
 import '../../../app/app.router.dart';
 import '../../../app/models/quiz.dart';
+import '../../../app/models/topic.dart';
+import '../../../app/services/firebase/firestore_service.dart';
 
-class QuizViewModel extends BaseViewModel {
+class QuizViewModel extends FutureViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
+  final FirestoreService _firestoreService = locator<FirestoreService>();
 
   // Timer
   Timer? _timer;
-  int ticker = 0, maxSecond = 60;
+  int ticker = 0, maxSecond = 30;
 
   // Quiz
   List<Quiz> listQuiz = [];
+  int currentQuizIndex = 0;
 
   void startTimer() {
     const period = Duration(seconds: 1);
@@ -25,7 +29,7 @@ class QuizViewModel extends BaseViewModel {
 
       if (ticker == maxSecond) {
         cancelFlashTimer();
-        navigateToScore();
+        selectAnswer("");
       }
     });
   }
@@ -34,6 +38,7 @@ class QuizViewModel extends BaseViewModel {
     if (_timer != null) {
       _timer!.cancel();
       _timer = null;
+      ticker = 0;
       notifyListeners();
     }
   }
@@ -50,9 +55,45 @@ class QuizViewModel extends BaseViewModel {
     _navigationService.navigateTo(Routes.scoreView);
   }
 
+  void selectAnswer(String answer) {
+    cancelFlashTimer();
+
+    if (currentQuizIndex == listQuiz.length - 1) {
+      return navigateToScore();
+    }
+
+    listQuiz[currentQuizIndex].answer = answer;
+    currentQuizIndex++;
+    notifyListeners();
+
+    startTimer();
+  }
+
+  void initialQuiz() async {
+    // Get Topics
+    final List<Topic> topics =
+        await runBusyFuture(_firestoreService.getTopics());
+    // Shuffle topics
+    topics.shuffle();
+
+    final String selectedTopic = topics[0].name ?? '';
+
+    // Get list Quiz by topic name
+    final resultGetQuiz =
+        await runBusyFuture(_firestoreService.getQuizzes(selectedTopic));
+    listQuiz = resultGetQuiz;
+    notifyListeners();
+  }
+
   @override
   void dispose() {
     cancelFlashTimer();
     super.dispose();
+  }
+
+  @override
+  Future futureToRun() async {
+    if (ticker != maxSecond) startTimer();
+    initialQuiz();
   }
 }

@@ -1,10 +1,11 @@
 import 'package:equatable/equatable.dart';
 
+// ignore: must_be_immutable
 class Quiz extends Equatable {
-  final String? category, correctAnswer, difficulty, question, type, answer;
-  final List<String>? incorrectAnswers;
+  String? category, correctAnswer, difficulty, question, type, answer;
+  List<String>? incorrectAnswers;
 
-  const Quiz({
+  Quiz({
     this.category,
     this.correctAnswer,
     this.answer,
@@ -20,7 +21,9 @@ class Quiz extends Equatable {
         difficulty: json['difficulty'],
         question: json['question'],
         type: json['type'],
-        incorrectAnswers: json['incorrect_answer'],
+        incorrectAnswers: json['incorrect_answers'] == null
+            ? []
+            : List<String>.from(json['incorrect_answers'].map((e) => e)),
       );
 
   @override

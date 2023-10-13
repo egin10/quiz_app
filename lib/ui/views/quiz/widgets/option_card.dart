@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stacked_hooks/stacked_hooks.dart';
 
 import '../../../../app/theme/app_text_theme.dart';
-import '../quiz_viewmodel.dart';
 
-class OptionCard extends StackedHookView<QuizViewModel> {
+class OptionCard extends StatelessWidget {
   final String text;
+  final VoidCallback onPressed;
 
   const OptionCard({
     super.key,
     required this.text,
+    required this.onPressed,
   });
 
   @override
-  Widget builder(BuildContext context, QuizViewModel model) {
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       width: double.maxFinite,
       child: ElevatedButton(
-        // TODO: Replace with submit the answer function
-        onPressed: () => model.navigateToScore(),
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shape: const StadiumBorder(),

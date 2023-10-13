@@ -22,7 +22,7 @@ class TimerIndicator extends StackedHookView<QuizViewModel> {
           ),
           Container(
             height: 6.h,
-            width: model.ticker * 7.2.w,
+            width: model.ticker * 14.4.w,
             color: Colors.amber,
           ),
         ],

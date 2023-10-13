@@ -13,12 +13,6 @@ class QuizView extends StackedView<QuizViewModel> {
   const QuizView({super.key});
 
   @override
-  void onViewModelReady(QuizViewModel viewModel) {
-    if (viewModel.ticker != viewModel.maxSecond) viewModel.startTimer();
-    super.onViewModelReady(viewModel);
-  }
-
-  @override
   Widget builder(BuildContext context, QuizViewModel viewModel, Widget? child) {
     return Scaffold(
       appBar: AppBar(
@@ -42,23 +36,46 @@ class QuizView extends StackedView<QuizViewModel> {
         child: Stack(
           children: [
             Container(
-              margin: EdgeInsets.symmetric(vertical: 36.h),
+              margin: EdgeInsets.symmetric(vertical: 46.h),
               height: double.maxFinite,
               width: double.maxFinite,
-              child: ListView(
-                children: [
-                  // Question
-                  // TODO: Replace from DB (Firestore)
-                  const QuestionCard(
-                      text:
-                          "Which is the fastest animal on the land?, Which is the fastest animal on the land?, Which is the fastest animal on the land?, Which is the fastest animal on the land?"),
-                  SizedBox(height: 30.h),
+              child: viewModel.listQuiz.isNotEmpty
+                  ? ListView(
+                      children: [
+                        // Question
+                        QuestionCard(
+                          text: viewModel.listQuiz[viewModel.currentQuizIndex]
+                                  .question ??
+                              'Quiz not found!',
+                        ),
+                        SizedBox(height: 30.h),
 
-                  // Options
-                  // TODO: Replace from DB (Firestore)
-                  for (int index = 0; index < 4; index++)
-                    const OptionCard(text: "Lion"),
-                ],
+                        // Options
+                        for (int index = 0;
+                            index <
+                                viewModel.listQuiz[viewModel.currentQuizIndex]
+                                    .incorrectAnswers!.length;
+                            index++)
+                          OptionCard(
+                            text: viewModel.listQuiz[viewModel.currentQuizIndex]
+                                .incorrectAnswers![index],
+                            onPressed: () => viewModel.selectAnswer(
+                              viewModel.listQuiz[viewModel.currentQuizIndex]
+                                  .incorrectAnswers![index],
+                            ),
+                          ),
+                      ],
+                    )
+                  : const Center(
+                      child: Text("Please wait."),
+                    ),
+            ),
+
+            Positioned(
+              top: 16.h,
+              right: 16.w,
+              child: Text(
+                "${viewModel.currentQuizIndex + 1}/${viewModel.listQuiz.length}",
               ),
             ),
 

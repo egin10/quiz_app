@@ -16,16 +16,11 @@ class TopicsViewModel extends BaseViewModel {
   List<Topic> topics = [], listTopics = [];
 
   void getTopics() async {
-    final result =
-        await _firestoreService.firestore.collection("categories").get();
+    final result = await _firestoreService.getTopics();
 
-    if (result.docs.isNotEmpty) {
-      topics = [];
-      topics = result.docs
-          .map((category) => Topic.fromJson(category.data()))
-          .toList();
-      listTopics = topics;
-    }
+    topics = result;
+    listTopics = result;
+
     notifyListeners();
   }
 
