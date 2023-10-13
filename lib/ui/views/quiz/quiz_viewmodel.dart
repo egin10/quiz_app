@@ -52,17 +52,19 @@ class QuizViewModel extends FutureViewModel {
   }
 
   void navigateToScore() {
-    _navigationService.navigateTo(Routes.scoreView);
+    _navigationService.navigateTo(Routes.scoreView,
+        arguments: ScoreViewArguments(quizList: listQuiz));
   }
 
   void selectAnswer(String answer) {
     cancelFlashTimer();
 
+    listQuiz[currentQuizIndex].answer = answer;
+
     if (currentQuizIndex == listQuiz.length - 1) {
       return navigateToScore();
     }
 
-    listQuiz[currentQuizIndex].answer = answer;
     currentQuizIndex++;
     notifyListeners();
 

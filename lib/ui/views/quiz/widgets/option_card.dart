@@ -17,13 +17,15 @@ class OptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w),
-      padding: EdgeInsets.symmetric(vertical: 8.h),
       width: double.maxFinite,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
           shape: const StadiumBorder(),
+          padding: EdgeInsets.symmetric(
+            vertical: 8.h,
+          ),
         ),
         child: Text(
           text,

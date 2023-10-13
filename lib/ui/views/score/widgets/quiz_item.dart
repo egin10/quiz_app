@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../app/theme/app_text_theme.dart';
+import '../../../../app/theme/app_text_theme.dart';
 import 'text_answer.dart';
 
 class QuizItem extends StatelessWidget {
@@ -24,24 +24,38 @@ class QuizItem extends StatelessWidget {
     return Container(
       width: double.maxFinite,
       margin: EdgeInsets.symmetric(horizontal: 26.w, vertical: 8.h),
+      padding: EdgeInsets.only(bottom: 16.h),
+      decoration: const BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.white,
+          ),
+        ),
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Quiz
           Text(quiz, style: textStyle),
+          SizedBox(height: 16.h),
+
           // Show incorrect Answer
           answer != correctAnswer
               ? Row(
                   children: [
-                    TextAnswer(
-                      answer: answer.isEmpty ? 'No choosen' : answer,
-                      textStyle: textStyle,
+                    Expanded(
+                      child: TextAnswer(
+                        answer: answer.isEmpty ? 'No chosen' : answer,
+                        textStyle: textStyle,
+                      ),
                     ),
                     SizedBox(width: 16.w),
-                    TextAnswer(
-                      answer: correctAnswer,
-                      textStyle: textStyle,
-                      isCorrect: true,
+                    Expanded(
+                      child: TextAnswer(
+                        answer: correctAnswer,
+                        textStyle: textStyle,
+                        isCorrect: true,
+                      ),
                     )
                   ],
                 )

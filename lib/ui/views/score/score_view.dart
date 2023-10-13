@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stacked/stacked.dart';
 
-import '../../../app/contants/custom_colors.dart';
-import '../../app/theme/app_text_theme.dart';
+import '../../../../app/contants/custom_colors.dart';
+import '../../../app/models/quiz.dart';
+import '../../../app/theme/app_text_theme.dart';
 import 'score_viewmodel.dart';
 import 'widgets/doughnut_chart.dart';
 import 'widgets/quiz_item.dart';
 
 class ScoreView extends StackedView<ScoreViewModel> {
-  const ScoreView({super.key});
+  final List<Quiz> quizList;
+
+  const ScoreView({
+    super.key,
+    required this.quizList,
+  });
 
   @override
   Widget builder(
@@ -34,7 +40,11 @@ class ScoreView extends StackedView<ScoreViewModel> {
         child: Column(
           children: [
             // Doughnut Chart
-            const DoughnutChart(),
+            DoughnutChart(
+              correct: viewModel.countAnswer(quizList, isCorrect: true),
+              incorrect: viewModel.countAnswer(quizList),
+              total: quizList.length.toDouble(),
+            ),
 
             // Button Share Score
             ElevatedButton(
@@ -65,11 +75,12 @@ class ScoreView extends StackedView<ScoreViewModel> {
             Expanded(
               child: ListView(
                 children: [
-                  for (int index = 0; index < 5; index++)
+                  for (int index = 0; index < quizList.length; index++)
                     QuizItem(
-                      quiz: "Who is the current prime minister of India?",
-                      correctAnswer: "Modi G",
-                      answer: index % 2 == 0 ? "Rahul Gandhi" : "",
+                      quiz: quizList[index].question ?? 'No Question',
+                      correctAnswer:
+                          quizList[index].correctAnswer ?? 'Not found',
+                      answer: quizList[index].answer ?? '',
                     ),
                 ],
               ),

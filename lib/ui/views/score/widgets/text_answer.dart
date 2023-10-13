@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TextAnswer extends StatelessWidget {
   final String answer;
@@ -20,7 +21,8 @@ class TextAnswer extends StatelessWidget {
         isCorrect
             ? const Icon(Icons.check, color: Colors.green)
             : const Icon(Icons.close, color: Colors.red),
-        Text(answer, style: textStyle),
+        SizedBox(width: 8.w),
+        Expanded(child: Text(answer, style: textStyle)),
       ],
     );
   }

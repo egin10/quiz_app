@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:stacked_hooks/stacked_hooks.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../../../app/theme/app_text_theme.dart';
-import '../score_viewmodel.dart';
+import '../../../../app/theme/app_text_theme.dart';
 
-class DoughnutChart extends StackedHookView<ScoreViewModel> {
-  const DoughnutChart({super.key});
+class DoughnutChart extends StatelessWidget {
+  final double correct, incorrect, total;
+
+  const DoughnutChart({
+    super.key,
+    this.correct = 0,
+    this.incorrect = 0,
+    this.total = 0,
+  });
 
   @override
-  Widget builder(BuildContext context, ScoreViewModel model) {
+  Widget build(BuildContext context) {
     final List<ChartData> chartData = [
-      ChartData('Correct', 38, Colors.green),
-      ChartData('Incorrect', 25, Colors.red),
+      ChartData('Correct', correct, Colors.green),
+      ChartData('Incorrect', incorrect, Colors.red),
     ];
 
     return SizedBox(
@@ -45,7 +50,7 @@ class DoughnutChart extends StackedHookView<ScoreViewModel> {
             width: double.maxFinite,
             child: Center(
               child: Text(
-                '3/5',
+                '${correct.toStringAsFixed(0)}/${total.toStringAsFixed(0)}',
                 style: AppTextTheme.getThemeText()
                     .bodyLarge
                     ?.copyWith(letterSpacing: 6.w),

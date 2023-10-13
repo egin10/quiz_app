@@ -7,13 +7,14 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i7;
 import 'package:flutter/material.dart';
-import 'package:quiz_app/ui/score/score_view.dart' as _i6;
+import 'package:quiz_app/app/models/quiz.dart' as _i8;
 import 'package:quiz_app/ui/views/home/home_view.dart' as _i3;
 import 'package:quiz_app/ui/views/quiz/quiz_view.dart' as _i4;
+import 'package:quiz_app/ui/views/score/score_view.dart' as _i6;
 import 'package:quiz_app/ui/views/splashscreen/splashscreen_view.dart' as _i2;
 import 'package:quiz_app/ui/views/topics/topics_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i8;
+import 'package:stacked_services/stacked_services.dart' as _i9;
 
 class Routes {
   static const splashScreenView = '/';
@@ -85,8 +86,10 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i6.ScoreView: (data) {
+      final args = data.getArgs<ScoreViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.ScoreView(),
+        builder: (context) =>
+            _i6.ScoreView(key: args.key, quizList: args.quizList),
         settings: data,
       );
     },
@@ -99,7 +102,34 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i8.NavigationService {
+class ScoreViewArguments {
+  const ScoreViewArguments({
+    this.key,
+    required this.quizList,
+  });
+
+  final _i7.Key? key;
+
+  final List<_i8.Quiz> quizList;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "quizList": "$quizList"}';
+  }
+
+  @override
+  bool operator ==(covariant ScoreViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.quizList == quizList;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ quizList.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> navigateToSplashScreenView([
     int? routerId,
     bool preventDuplicates = true,
@@ -156,14 +186,17 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToScoreView([
+  Future<dynamic> navigateToScoreView({
+    _i7.Key? key,
+    required List<_i8.Quiz> quizList,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.scoreView,
+        arguments: ScoreViewArguments(key: key, quizList: quizList),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -226,14 +259,17 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithScoreView([
+  Future<dynamic> replaceWithScoreView({
+    _i7.Key? key,
+    required List<_i8.Quiz> quizList,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.scoreView,
+        arguments: ScoreViewArguments(key: key, quizList: quizList),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
